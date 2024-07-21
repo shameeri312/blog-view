@@ -42,6 +42,6 @@ export async function createBlog(formData: FormData) {
     console.log({ "Database error: ": error });
   }
 
-  revalidatePath("/addBlog");
+  revalidatePath("/");
   redirect("/");
 }
