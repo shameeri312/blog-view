@@ -23,7 +23,7 @@ export async function fetchBlogs(category_id: number) {
       JOIN 
         categories ON posts.category_id = categories.category_id
       WHERE posts.category_id = ${category_id}
-      ORDER BY posts.post_id
+      ORDER BY posts.post_id DESC
     `
         : await sql<Posts>`
       SELECT 
@@ -36,7 +36,7 @@ export async function fetchBlogs(category_id: number) {
         users_a ON posts.user_id = users_a.user_id
       JOIN 
         categories ON posts.category_id = categories.category_id
-      ORDER BY posts.post_id
+      ORDER BY posts.post_id DESC
     `;
     // console.log(data.rows);
     return data.rows;
