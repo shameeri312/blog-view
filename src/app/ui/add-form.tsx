@@ -7,7 +7,6 @@ import axios from "axios";
 
 interface AddFormProps {
   categories: Categories[];
-  name: string;
 }
 
 const AddForm = ({ categories }: AddFormProps) => {
