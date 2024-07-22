@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { FaBookmark } from "react-icons/fa6";
-import { getFirst20Words } from "../lib/utils";
+import { getFirst20Words, getFirst5Words } from "../lib/utils";
 import { Posts } from "../lib/definitions";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -57,7 +57,9 @@ const Card = ({
           <h3 className="bg-slate-500 py-[1px] px-3 rounded-full text-sm text-white sm:text-base md:text-base">
             {category_name}
           </h3>
-          <h1 className="font-bold text-lg sm:text-xl md:text-2xl">{title}</h1>
+          <h1 className="font-bold text-lg sm:text-xl md:text-2xl">
+            {getFirst5Words(title)}
+          </h1>
         </div>
         <div className="h-full">
           <p className="text-[13px] sm:text-sm md:text-base">
