@@ -38,6 +38,10 @@ const AddForm = ({ categories }: AddFormProps) => {
             ))}
           </select>
         </div>
+        <label className="w-full flex items-center text-sm justify-between tracking-wide p-5 rounded-lg bg-gray-100 gap-3">
+          <span className="opacity-60">Upload an image:</span>
+          <input type="file" name="file" />
+        </label>
         <textarea
           name="content"
           id="newBlog"

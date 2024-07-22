@@ -8,7 +8,6 @@ export async function fetchBlogs(category_id: number) {
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
-    console.log("Fetching: " + category_id);
     const data =
       category_id > 0
         ? await sql<Posts>`
@@ -23,7 +22,7 @@ export async function fetchBlogs(category_id: number) {
       JOIN 
         categories ON posts.category_id = categories.category_id
       WHERE posts.category_id = ${category_id}
-      ORDER BY posts.post_id
+      ORDER BY posts.post_id DESC
     `
         : await sql<Posts>`
       SELECT 
@@ -36,7 +35,7 @@ export async function fetchBlogs(category_id: number) {
         users_a ON posts.user_id = users_a.user_id
       JOIN 
         categories ON posts.category_id = categories.category_id
-      ORDER BY posts.post_id
+      ORDER BY posts.post_id DESC
     `;
     // console.log(data.rows);
     return data.rows;
@@ -60,7 +59,7 @@ export async function fetchBlog(id: number) {
     console.log("Fetching...");
 
     const data = await sql<Preview>`SELECT 
-        posts.title, posts.content, posts.created_at,
+        posts.title, posts.content, posts.created_at, posts.image,
         users_a.username AS user_name, 
         categories.name AS category_name
       FROM 
@@ -70,12 +69,12 @@ export async function fetchBlog(id: number) {
       JOIN 
         categories ON posts.category_id = categories.category_id
       WHERE post_id = ${id}`;
-    console.log("Fetched Data is:");
     const title = data.rows[0].title;
     const content = data.rows[0].content;
     const created_at = data.rows[0].created_at;
     const user_name = data.rows[0].user_name;
     const category_name = data.rows[0].category_name;
+    const image = data.rows[0].image;
     const date = format(new Date(created_at), "MMMM d, yyyy HH:mm");
     return {
       title,
@@ -83,6 +82,7 @@ export async function fetchBlog(id: number) {
       date,
       user_name,
       category_name,
+      image,
     };
   } catch (error) {
     console.error("Database Error:", error);

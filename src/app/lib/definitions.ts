@@ -1,6 +1,7 @@
 export type Posts = {
   post_id: number;
   user_id: number;
+  image: string;
   title: string;
   content: string;
   created_at: string;
@@ -21,4 +22,5 @@ export type Preview = {
   created_at: string;
   user_name: string;
   category_name: string;
+  image: string;
 };

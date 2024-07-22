@@ -12,6 +12,7 @@ export const CardWrapper = async ({ id }: { id: number }) => {
           <div key={blog.post_id}>
             <Card
               title={blog.title}
+              image={blog.image}
               content={blog.content}
               user_name={blog.user_name}
               category_name={blog.category_name}

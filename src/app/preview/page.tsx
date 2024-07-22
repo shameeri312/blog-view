@@ -7,7 +7,6 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { fetchBlog } from "../lib/data";
-import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -41,7 +40,7 @@ const Page = async ({
       <div className="py-10 w-full lg:w-3/4 xl:w-2/3 flex flex-col gap-3 px-6">
         <h1 className="py-5 font-bold text-3xl md:text-5xl">{post?.title}</h1>
         <Image
-          src={"/blog-img.jpg"}
+          src={`/${post?.image}`}
           alt="blog-img"
           className="w-full h-[250px] sm:h-[400px] xl:h-[600px] object-cover"
           width={10000}

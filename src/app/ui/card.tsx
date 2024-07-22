@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const Card = ({
   title,
+  image,
   post_id,
   content,
   user_name,
@@ -42,7 +43,7 @@ const Card = ({
       onClick={() => handleClick(post_id)}
     >
       <Image
-        src={"/blog-img.jpg"}
+        src={`/${image}`}
         className="object-cover h-[200px]"
         onClick={() => handleClick(post_id)}
         alt="blog-img"
