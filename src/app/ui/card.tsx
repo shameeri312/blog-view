@@ -39,7 +39,7 @@ const Card = ({
 
   return (
     <div
-      className=" border bg-slate-100/0 border-slate-600/20 shadow-lg shadow-slate-400/50  rounded-xl overflow-hidden"
+      className=" border bg-slate-100/0 border-slate-600/20 shadow-lg shadow-slate-400/50 overflow-hidden"
       onClick={() => handleClick(post_id)}
     >
       <Image

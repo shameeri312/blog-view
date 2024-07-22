@@ -1,12 +1,10 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { sq } from "date-fns/locale";
+import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import fs from "node:fs/promises";
-import path from "node:path";
 
 const FormSchema = z.object({
   title: z.string(),
@@ -14,22 +12,13 @@ const FormSchema = z.object({
   content: z.string(),
 });
 
-export async function createBlog(formData: FormData) {
+export async function createBlog(formData: FormData, name: string) {
   const result = FormSchema.safeParse({
     title: formData.get("title"),
     categoryId: formData.get("categoryId"),
     content: formData.get("content"),
   });
-  const file = formData.get("file") as File;
-  const name = file.name;
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = new Uint8Array(arrayBuffer);
-  // Generate a new filename
-  const newFileName = `${Date.now()}-${file.name}`;
-  const filePath = path.join("./public", newFileName);
 
-  await fs.writeFile(filePath, buffer);
-  console.log(name);
   if (!result.success) {
     console.error("Validation failed:", result.error);
     return {
@@ -38,17 +27,16 @@ export async function createBlog(formData: FormData) {
   }
 
   const { title, categoryId, content } = result.data;
-
-  // Test it out:
-  console.log({ title, categoryId, content });
+  console.log(name);
 
   try {
     const res =
       await sql`INSERT INTO POSTS (user_id, title, content, category_id, image)
-                VALUES (1, ${title}, ${content}, ${categoryId}, ${newFileName})`;
+                VALUES (1, ${title}, ${content}, ${categoryId}, ${name})`;
     console.log(res);
   } catch (error) {
     console.log({ "Database error: ": error });
+    console.log(error);
   }
 
   revalidatePath("/");
